@@ -22,7 +22,6 @@ WalkAndRun *war;
 
 int main(int argc, char** argv)
 {
-    war = new WalkAndRun();
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_DEPTH | GLUT_RGBA);
     glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -48,8 +47,7 @@ void initGL()
     glDepthFunc(GL_LEQUAL);   // Set the type of depth-test
     glShadeModel(GL_SMOOTH);  // Enable smooth shading
     glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);  // Nice perspective corrections
-
-    // Init the puppet
+    war = new WalkAndRun();
 }
 
 /**
@@ -59,12 +57,14 @@ void display()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear color and depth buffers
     glMatrixMode(GL_MODELVIEW);     // To operate on model-view matrix
-    glPushMatrix();
+
+    glLoadIdentity();
+    gluLookAt(0.0f, 0.0f, 20.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
+    glColor3f(1.0f, 1.0f, 1.0f);
 
     // Update and draw scene
     war->display();
 
-    glPopMatrix();
     glutSwapBuffers();
 }
 

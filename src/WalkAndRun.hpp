@@ -6,7 +6,14 @@
 #ifndef WALKANDRUN_HPP
 #define WALKANDRUN_HPP
 
+// Forward declarations
+class Puppet;
+
+
 class WalkAndRun {
+
+private:
+    Puppet *m_puppet;
 
 public:
     WalkAndRun();
