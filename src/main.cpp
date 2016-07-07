@@ -59,8 +59,8 @@ void display()
     glMatrixMode(GL_MODELVIEW);     // To operate on model-view matrix
 
     glLoadIdentity();
-    gluLookAt(0.0f, 0.0f, 20.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
     glColor3f(1.0f, 1.0f, 1.0f);
+    gluLookAt(10.0f, 10.0f, 30.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 
     // Update and draw scene
     war->display();
@@ -93,6 +93,18 @@ void reshape(GLsizei width, GLsizei height)
  */
 void keyboard(unsigned char key, int x, int y)
 {
-    // Nothing so far
+    const int POS = +1;
+    const int NEG = -1;
+
+    switch(key)
+    {
+        case 27 : exit(0); break;
+        case 'x': war->rotate_x(POS); break;
+        case 'X': war->rotate_x(NEG); break;
+        case 'y': war->rotate_y(POS); break;
+        case 'Y': war->rotate_y(NEG); break;
+        case 'z': war->rotate_z(POS); break;
+        case 'Z': war->rotate_z(NEG); break;
+    }
     glutPostRedisplay();
 }
