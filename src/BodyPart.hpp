@@ -15,11 +15,16 @@ class BodyPart {
 protected:
     BodyPart *m_child;
     BodyPart *m_sibling;
+    float m_rx, m_ry, m_rz;  // Rotation angles
+    float m_dx, m_dy, m_dz;  // Displacements
     GLuint m_displayList;
 
 public:
-    BodyPart(BodyPart *child, BodyPart *sibling)
-        : m_child(child), m_sibling(sibling) {
+    BodyPart(float rx, float ry, float rz, float dx, float dy, float dz) :
+        m_child(nullptr), m_sibling(nullptr),
+        m_rx(rx), m_ry(ry), m_rz(rz),
+        m_dx(dx), m_dy(dy), m_dz(dz)
+    {
     }
 
     virtual ~BodyPart() {
@@ -39,6 +44,14 @@ public:
 
     void set_sibling(BodyPart *a_sibling) {
         m_sibling = a_sibling;
+    }
+
+    void set_rotation(float rx, float ry, float rz) {
+        m_rx = rx;   m_ry = ry;   m_rz = rz;
+    }
+
+    void set_displacement(float dx, float dy, float dz) {
+        m_dx = dx;   m_dy = dy;   m_dz = dz;
     }
 
     virtual void display() = 0;

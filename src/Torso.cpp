@@ -5,8 +5,7 @@
 #include <iostream>
 #include "Torso.hpp"
 
-Torso::Torso() : BodyPart(nullptr, nullptr), m_rx(0.0f), m_ry(0.0f), m_rz(0.0f),
-    m_dx(0.0f), m_dy(5.0f), m_dz(0.0f)
+Torso::Torso() : BodyPart(0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f)
 {
     m_displayList = glGenLists(1);
     glNewList(m_displayList, GL_COMPILE);
