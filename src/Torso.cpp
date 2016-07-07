@@ -5,7 +5,8 @@
 #include <iostream>
 #include "Torso.hpp"
 
-Torso::Torso() : BodyPart(nullptr, nullptr), m_x(0), m_y(0), m_z(0)
+Torso::Torso() : BodyPart(nullptr, nullptr), m_rx(0.0f), m_ry(0.0f), m_rz(0.0f),
+    m_dx(0.0f), m_dy(5.0f), m_dz(0.0f)
 {
     m_displayList = glGenLists(1);
     glNewList(m_displayList, GL_COMPILE);
@@ -26,10 +27,10 @@ Torso::Torso() : BodyPart(nullptr, nullptr), m_x(0), m_y(0), m_z(0)
 void Torso::display()
 {
     std::cout << "> Torso::display()" << std::endl;
-    glRotatef(m_x, 1.0, 0.0, 0.0);
-    glRotatef(m_z, 0.0, 0.0, 1.0);
-    glRotatef(m_y, 0.0, 1.0, 0.0);
-    glTranslatef(0.0f, 5.0f, 0.0f);
+    glRotatef(m_rx, 1.0, 0.0, 0.0);
+    glRotatef(m_rz, 0.0, 0.0, 1.0);
+    glRotatef(m_ry, 0.0, 1.0, 0.0);
+    glTranslatef(m_dx, m_dy, m_dz);
     glColor3f(1.0f, 0.0f, 1.0f);
     glCallList(m_displayList);
 }
