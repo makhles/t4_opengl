@@ -14,6 +14,7 @@ void initGL();
 void display();
 void reshape(int w, int h);
 void keyboard(unsigned char key, int x, int y);
+void special_function(int key, int x, int y);
 
 // Global variables
 WalkAndRun *war;
@@ -31,6 +32,7 @@ int main(int argc, char** argv)
     glutDisplayFunc(display);  // Register callback handler for window re-paint event
     glutReshapeFunc(reshape);  // Register callback handler for window re-size event
     glutKeyboardFunc(keyboard);
+    glutSpecialFunc(special_function);
     initGL();
     glutMainLoop();
     return 0;
@@ -47,7 +49,7 @@ void initGL()
     glDepthFunc(GL_LEQUAL);   // Set the type of depth-test
     glShadeModel(GL_SMOOTH);  // Enable smooth shading
     glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);  // Nice perspective corrections
-    war = new WalkAndRun();
+    war = new WalkAndRun(0.0f, 10.0f, 30.0f);
 }
 
 /**
@@ -60,7 +62,6 @@ void display()
 
     glLoadIdentity();
     glColor3f(1.0f, 1.0f, 1.0f);
-    gluLookAt(10.0f, 10.0f, 30.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
 
     // Update and draw scene
     war->display();
@@ -105,6 +106,26 @@ void keyboard(unsigned char key, int x, int y)
         case 'Y': war->rotate_y(NEG); break;
         case 'z': war->rotate_z(POS); break;
         case 'Z': war->rotate_z(NEG); break;
+    }
+    glutPostRedisplay();
+}
+
+/**
+ * @brief      Called whenever a special function key is pressed.
+ *
+ * @param[in]  key   The key pressed.
+ * @param[in]  x     Mouse pointer coordinate x when key was pressed.
+ * @param[in]  y     Mouse pointer coordinate y when key was pressed.
+ */
+void special_function(int key, int x, int y)
+{
+    const int POS = +1;
+    const int NEG = -1;
+
+    switch(key)
+    {
+        case GLUT_KEY_UP:   war->move_eye_z(NEG); break;
+        case GLUT_KEY_DOWN: war->move_eye_z(POS); break;
     }
     glutPostRedisplay();
 }
