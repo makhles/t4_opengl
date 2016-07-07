@@ -10,13 +10,16 @@
 #include "Puppet.hpp"
 #include "BodyPart.hpp"
 #include "Torso.hpp"
+#include "Head.hpp"
 
 
 Puppet::Puppet()
 {
     std::cout << "Creating torso..." << std::endl;
+    BodyPart *head;
     m_root = new Torso();
-    // TODO: Add body parts here
+    head = new Head();
+    m_root->set_child(head);
 }
 
 Puppet::~Puppet()
