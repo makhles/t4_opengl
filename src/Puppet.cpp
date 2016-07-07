@@ -31,6 +31,7 @@ void Puppet::delete_puppet(BodyPart *root)
     if (root->child() != nullptr) traverse(root->child());
     if (root->sibling() != nullptr) traverse(root->sibling());
     delete root;
+    root = nullptr;
 }
 
 /**
