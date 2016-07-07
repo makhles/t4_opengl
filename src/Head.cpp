@@ -5,28 +5,26 @@
 #include <iostream>
 #include "Head.hpp"
 
-GLfloat blue1[3] = {0.0f, 0.0f, 1.0f};
-GLfloat blue2[3] = {0.0f, 0.0f, 0.7f};
-GLfloat blue3[3] = {0.0f, 0.0f, 0.3f};
 
-Head::Head() : BodyPart(0.0f, 0.0f, 0.0f, 0.0f, 1.3f, 0.0f)
+Head::Head(float rx, float ry, float rz, float dx, float dy, float dz) :
+    BodyPart(rx, ry, rz, dx, dy, dz)
 {
     m_displayList = glGenLists(1);
     glNewList(m_displayList, GL_COMPILE);
     glPushMatrix();
-        glColor3fv(blue1);
+        glColor3fv(m_colorBlue1);
         glScalef(0.9f, 1.0f, 1.0f);
         GLUquadricObj *quadratic = gluNewQuadric();
         gluSphere(quadratic, 1.3f, 32, 32);
 
         GLUquadricObj *quadratic1 = gluNewQuadric();
-        glColor3fv(blue2);
+        glColor3fv(m_colorBlue2);
         glTranslatef(0.0f, 0.9f, 0.0f);
         glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
         gluCylinder(quadratic1, 1.6f, 1.6f, 0.6f, 32, 32);
         gluDisk(quadratic1, 0.0f, 1.6f, 32, 32);
 
-        glColor3fv(blue3);
+        glColor3fv(m_colorBlue3);
         glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
         glTranslatef(0.0f, 0.6f, 0.0f);
         glRotatef(90.0f, 1.0f, 0.0f, 0.0f);

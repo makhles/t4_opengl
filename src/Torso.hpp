@@ -11,7 +11,7 @@
 class Torso : public BodyPart {
 
 public:
-    Torso();
+    Torso(float rx, float ry, float rz, float dx, float dy, float dz);
     ~Torso() {}
     void display() override;
 };

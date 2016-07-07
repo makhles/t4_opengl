@@ -11,15 +11,20 @@
 #include "BodyPart.hpp"
 #include "Torso.hpp"
 #include "Head.hpp"
+#include "UpperArm.hpp"
 
 
 Puppet::Puppet()
 {
     std::cout << "Creating torso..." << std::endl;
-    BodyPart *head;
-    m_root = new Torso();
-    head = new Head();
+    BodyPart *head, *leftUpperArm, *rightUpperArm;
+    m_root = new Torso(0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f);
+    head = new Head(0.0f, 0.0f, 0.0f, 0.0f, 1.3f, 0.0f);
+    leftUpperArm = new UpperArm(0.0f, 0.0f, -10.0f, -2.5f, 0.0f, 0.0f);
+    rightUpperArm = new UpperArm(0.0f, 0.0f, 10.0f, 2.5f, 0.0f, 0.0f);
     m_root->set_child(head);
+    head->set_sibling(leftUpperArm);
+    leftUpperArm->set_sibling(rightUpperArm);
 }
 
 Puppet::~Puppet()
