@@ -13,7 +13,17 @@ class BodyPart;
 class Puppet {
 
 private:
-    BodyPart *m_root;
+    BodyPart * m_root;
+    BodyPart * m_hip;
+    BodyPart * m_torso;
+    BodyPart * m_neck;
+    BodyPart * m_head;
+    BodyPart * m_leftUpperArm;
+    BodyPart * m_rightUpperArm;
+    BodyPart * m_leftLowerArm;
+    BodyPart * m_rightLowerArm;
+    BodyPart * m_leftUpperLeg;
+    BodyPart * m_rightUpperLeg;
 
 private:
     void traverse(BodyPart *root);

@@ -15,14 +15,14 @@ Head::Head(float rx, float ry, float rz, float dx, float dy, float dz) :
         glColor3fv(m_colorBlue1);
         glScalef(0.9f, 1.0f, 1.0f);
         GLUquadricObj *quadratic = gluNewQuadric();
-        gluSphere(quadratic, 1.3f, 32, 32);
+        gluSphere(quadratic, HEAD_RADIUS, SLICES, STACKS);
 
         GLUquadricObj *quadratic1 = gluNewQuadric();
         glColor3fv(m_colorBlue2);
         glTranslatef(0.0f, 0.9f, 0.0f);
         glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
-        gluCylinder(quadratic1, 1.6f, 1.6f, 0.6f, 32, 32);
-        gluDisk(quadratic1, 0.0f, 1.6f, 32, 32);
+        gluCylinder(quadratic1, HAT_BASE_RADIUS_BASE, HAT_BASE_RADIUS_TOP, HAT_BASE_HEIGHT, SLICES, STACKS);
+        gluDisk(quadratic1, 0.0f, HAT_BASE_RADIUS_BASE, SLICES, STACKS);
 
         glColor3fv(m_colorBlue3);
         glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);

@@ -1,54 +1,65 @@
-.SUFFIXES: .cpp .hpp
+# Created by aszdrick graf <aszdrick@gmail.com>
+# Compiler
+CXX       :=g++
+LDLIBS    :=-g++ -lGL -lGLU -lglut
+LDFLAGS   :=
+CXXFLAGS  :=-std=c++11 -Wall
+# Source directory
+SRCDIR    :=src
+# Headers directory
+HDRDIR    :=include
+# Build directory
+BUILDIR   :=build
+# Binaries directory
+BINDIR    :=bin
+#Include flag
+INCLUDE   :=-I$(HDRDIR)
+# Sources
+SRC       :=$(shell find $(SRCDIR) -name '*.cpp')
+# Dependencies
+DEP       :=$(SRC:.cpp=.d) 
+# Objects
+OBJ       :=$(patsubst $(SRCDIR)/%.cpp,$(BUILDIR)/%.o,$(SRC))
+# Program executable
+EXEC      :=$(BINDIR)/t4
 
-# Programs2
-SHELL 	= bash
-CC     	= g++
-LD	= ld
-RM 	= rm
-ECHO	= /bin/echo
-PRINTF	= printf
-SED	= sed
-CP = cp
-MV = mv
+.PHONY: all makedir clean clean_all
 
+all: makedir $(EXEC)
 
-PROJECT_ROOT=$(shell pwd)
-SRCDIR = $(PROJECT_ROOT)/src
-OBJDIR = $(PROJECT_ROOT)/obj
-BINDIR = $(PROJECT_ROOT)/bin
+$(EXEC): $(OBJ)
+	@echo "[linking] $(EXEC)"
+	@$(CXX) $(OBJ) -o $@ $(LDLIBS) $(LDFLAGS) $(CXXFLAGS)
 
-LIBS = -lGL -lGLU -lglut -Wall -std=c++11
-TARGET = t4
+$(BUILDIR)/%.o: $(SRCDIR)/%.cpp
+	@echo "[  $(CXX)  ] $< -> .o"
+	@mkdir -p $(BUILDIR)/$(*D)
+	@$(CXX) $(CXXFLAGS) $(INCLUDE) -c $< -o $@
 
-SRCS := $(wildcard $(SRCDIR)/*.cpp)
-INCS := $(wildcard $(SRCDIR)/*.h)
-OBJS := $(SRCS:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
+makedir: | $(BUILDIR) $(BINDIR)
 
-.PHONY: all setup clean distclean
+$(BINDIR) $(BUILDIR):
+	@echo "[ mkdir ] Creating directory '$@'"
+	@mkdir -p $@
 
-all: setup $(BINDIR)/$(TARGET)
+# For each .cpp file, creates a .d file with all dependencies of .cpp,
+# including .d as target (to ensure updated dependencies, in case of
+# adding a new include or nested include)
+$(SRCDIR)/%.d: $(SRCDIR)/%.cpp
+	@echo "[makedep] $< -> .d"
+	@$(CXX) -MM -MP -MT "$(BUILDIR)/$*.o $@" -MF "$@" $< $(INCLUDE) $(CXXFLAGS)
 
-setup:
-	@$(ECHO) "Setting up compilation.."
-	@mkdir -p obj
-	@mkdir -p bin
-
-$(BINDIR)/$(TARGET): $(OBJS)
-	@$(ECHO) -n "Building executable..."
-	@$(CC) -o $@  $(OBJS) $(LIBS) 
-
--include $(OBJS:.o=.d)
-
-$(OBJS): $(OBJDIR)/%.o : $(SRCDIR)/%.cpp
-	@$(PRINTF) "Compiling $(notdir $<)\n"
-	@$(CC) $(LIBS) -c $< -o $@
-
+# Only remove object files
 clean:
-	@$(ECHO) -n "Cleaning up..."
-	@$(RM) -rf $(OBJDIR) *~ $(SRCDIR)/*~ 
-	@$(ECHO) "Done"
+	@$(RM) -r $(BUILDIR)
 
-distclean:
-	@$(ECHO) -n "Cleaning up.."
-	@$(RM) -rf $(OBJDIR) *~  $(BINDIR) 
-	@$(ECHO) "Done"
+# Remove object, binary and dependency files
+clean_all:
+	@$(RM) -r $(BUILDIR)
+	@$(RM) -r $(BINDIR)
+	@$(RM) -r $(DEP)
+
+# Do not include list of dependencies if make was called with target clean_all
+ifneq ($(MAKECMDGOALS), clean_all)
+-include $(DEP)
+endif

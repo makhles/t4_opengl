@@ -6,6 +6,7 @@
 #ifndef BODY_PART_HPP
 #define BODY_PART_HPP
 
+#include <cstddef>
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <GL/glut.h>
@@ -13,6 +14,21 @@
 class BodyPart {
 
 protected:
+    // const GLint SLICES = 32;
+    // const GLint STACKS = 32;
+
+    // const float NECK_HEIGHT = 0.6f;
+    // const float NECK_RADIUS_BASE = 0.6f;
+    // const float NECK_RADIUS_TOP = 0.6f;
+
+    // const float HIP_HEIGHT = 1.0f;
+    // const float HIP_RADIUS_BASE = 2.1f;
+    // const float HIP_RADIUS_TOP = 2.1f;
+
+    // const float LOWER_LEG_HEIGHT = 6.0f;
+    // const float LOWER_LEG_RADIUS_BASE = 1.0f;
+    // const float LOWER_LEG_RADIUS_TOP = 0.8f;
+
     BodyPart *m_child;
     BodyPart *m_sibling;
     float m_rx, m_ry, m_rz;  // Rotation angles
