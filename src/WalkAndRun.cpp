@@ -27,3 +27,8 @@ void WalkAndRun::display() {
     glRotatef(m_rz, 0.0f, 0.0f, 1.0f);
     m_puppet->display();
 }
+
+void WalkAndRun::animate(const double speed)
+{
+    
+}

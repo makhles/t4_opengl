@@ -23,6 +23,7 @@ public:
     WalkAndRun(float eyex, float eyey, float eyez);
     ~WalkAndRun();
     void display();
+    void animate(const double speed);
 
     void rotate_x(int orientation) {
         m_rx += orientation * DEFAULT_ROTATION;

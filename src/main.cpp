@@ -4,20 +4,24 @@
  */
 #include <GL/glut.h>
 #include <stdlib.h>
+#include <sys/time.h>  /* for gettimeofday */
 #include "WalkAndRun.hpp"
 
 #define WINDOW_WIDTH 640
 #define WINDOW_HEIGHT 480
 
 // Function prototypes
-void initGL();
-void display();
-void reshape(int w, int h);
-void keyboard(unsigned char key, int x, int y);
-void special_function(int key, int x, int y);
+static void initGL();
+static void display();
+static void reshape(int w, int h);
+static void keyboard(unsigned char key, int x, int y);
+static void special_function(int key, int x, int y);
+static void idle();
+static double ftime();
 
 // Global variables
 WalkAndRun *war;
+static double last_time;
 
 // ------------------------------------------------------------------------- //
 
@@ -32,6 +36,7 @@ int main(int argc, char** argv)
     glutDisplayFunc(display);  // Register callback handler for window re-paint event
     glutReshapeFunc(reshape);  // Register callback handler for window re-size event
     glutKeyboardFunc(keyboard);
+    glutIdleFunc(idle);
     glutSpecialFunc(special_function);
     initGL();
     glutMainLoop();
@@ -41,7 +46,7 @@ int main(int argc, char** argv)
 /**
  * @brief      Initialize OpenGL graphics.
  */
-void initGL()
+static void initGL()
 {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);  // Set background color to opaque black
     glClearDepth(1.0f);       // Set background depth to farthest
@@ -55,7 +60,7 @@ void initGL()
 /**
  * @brief      Called when a re-paint event occurs.
  */
-void display()
+static void display()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear color and depth buffers
     glMatrixMode(GL_MODELVIEW);     // To operate on model-view matrix
@@ -75,7 +80,7 @@ void display()
  * @param[in]  width     The new width of the window.
  * @param[in]  height    The new height of the window.
  */
-void reshape(GLsizei width, GLsizei height)
+static void reshape(GLsizei width, GLsizei height)
 {
     if (height == 0) height = 1;  // To prevent division by 0
     GLfloat aspect = (GLfloat)width / (GLfloat)height;
@@ -92,7 +97,7 @@ void reshape(GLsizei width, GLsizei height)
  * @param[in]  x     Mouse pointer coordinate x when key was pressed.
  * @param[in]  y     Mouse pointer coordinate y when key was pressed.
  */
-void keyboard(unsigned char key, int x, int y)
+static void keyboard(unsigned char key, int x, int y)
 {
     const int POS = +1;
     const int NEG = -1;
@@ -117,7 +122,7 @@ void keyboard(unsigned char key, int x, int y)
  * @param[in]  x     Mouse pointer coordinate x when key was pressed.
  * @param[in]  y     Mouse pointer coordinate y when key was pressed.
  */
-void special_function(int key, int x, int y)
+static void special_function(int key, int x, int y)
 {
     const int POS = +1;
     const int NEG = -1;
@@ -128,4 +133,19 @@ void special_function(int key, int x, int y)
         case GLUT_KEY_DOWN: war->move_eye_z(POS); break;
     }
     glutPostRedisplay();
+}
+
+static void idle() {
+    const double time_now = ftime();
+    const double dt = time_now - last_time;
+    const double speed = dt * 60;
+    last_time = time_now;
+    war->animate(speed);
+    glutPostRedisplay();
+}
+
+static double ftime() {
+    struct timeval t;
+    gettimeofday(&t, NULL);
+    return 1.0*t.tv_sec + 1e-6*t.tv_usec;
 }

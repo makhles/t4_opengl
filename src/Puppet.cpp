@@ -89,7 +89,7 @@ void Puppet::traverse(BodyPart *root)
 
     // Draw body part
     root->display();
-    print_modelview_matrix();
+    //print_modelview_matrix();
 
     // Visit child
     if (root->child() != nullptr)
