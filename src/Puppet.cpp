@@ -18,6 +18,7 @@
 #include "LowerArm.hpp"
 #include "UpperLeg.hpp"
 #include "LowerLeg.hpp"
+#include "Foot.hpp"
 
 void print_modelview_matrix();
 
@@ -38,6 +39,8 @@ Puppet::Puppet()
     m_rightUpperLeg = new UpperLeg(0.0f, 0.0f, 5.0f, 1.1f, -1.0f, 0.0f);
     m_leftLowerLeg = new LowerLeg(0.0f, 0.0f, 0.0f, 0.0f, -4.0f, 0.0f);
     m_rightLowerLeg = new LowerLeg(0.0f, 0.0f, 0.0f, 0.0f, -4.0f, 0.0f);
+    m_leftFoot = new Foot(0.0f, 0.0f, 0.0f, 0.0f, -6.0f, 0.0f);
+    m_rightFoot = new Foot(0.0f, 0.0f, 0.0f, 0.0f, -6.0f, 0.0f);
 
     // Family tree
     m_hip->set_child(m_torso);
@@ -49,8 +52,10 @@ Puppet::Puppet()
     m_rightUpperArm->set_child(m_rightLowerArm);
     m_torso->set_sibling(m_leftUpperLeg);
     m_leftUpperLeg->set_child(m_leftLowerLeg);
+    m_leftLowerLeg->set_child(m_leftFoot);
     m_leftUpperLeg->set_sibling(m_rightUpperLeg);
     m_rightUpperLeg->set_child(m_rightLowerLeg);
+    m_rightLowerLeg->set_child(m_rightFoot);
 
     m_root = m_hip;
 }
