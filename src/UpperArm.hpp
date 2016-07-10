@@ -16,9 +16,7 @@ private:
     const float UPPER_ARM_HEIGHT = 3.0f;
     const float UPPER_ARM_RADIUS_BASE = 0.6f;
     const float UPPER_ARM_RADIUS_TOP = 0.6f;
-    const GLfloat m_colorBlue1[3] = {0.0f, 0.0f, 1.0f};
-    const GLfloat m_colorBlue2[3] = {0.0f, 0.0f, 0.7f};
-    const GLfloat m_colorBlue3[3] = {0.0f, 0.0f, 0.3f};
+    const GLfloat m_color[3] = {0.165f, 0.435f, 0.216f};  // 42, 111, 55 (green)
 
 public:
     UpperArm(float rx, float ry, float rz, float dx, float dy, float dz);

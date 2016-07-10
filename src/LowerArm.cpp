@@ -10,14 +10,14 @@ LowerArm::LowerArm(float rx, float ry, float rz, float dx, float dy, float dz) :
 {
     m_displayList = glGenLists(1);
     glNewList(m_displayList, GL_COMPILE);
-        glColor3fv(m_colorGreen1);
+        glColor3fv(m_color1);
         GLUquadricObj *quadratic = gluNewQuadric();
         glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
         gluCylinder(quadratic, LOWER_ARM_RADIUS_BASE, LOWER_ARM_RADIUS_TOP, LOWER_ARM_HEIGHT, SLICES, STACKS);
-        glColor3fv(m_colorGreen2);
+        glColor3fv(m_color2);
         gluDisk(quadratic, 0.0f, LOWER_ARM_RADIUS_BASE, SLICES, STACKS);
         glPushMatrix();
-            glColor3fv(m_colorGreen3);
+            glColor3fv(m_color3);
             glTranslatef(0.0, 0.0, LOWER_ARM_HEIGHT);
             gluDisk(quadratic, 0.0f, LOWER_ARM_RADIUS_TOP, SLICES, STACKS);
         glPopMatrix();

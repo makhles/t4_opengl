@@ -3,24 +3,29 @@
  * Date..: 2016-07-07 - initial implementation 
  */
 #include <iostream>
-#include "UpperLeg.hpp"
+#include "LowerLeg.hpp"
 
-UpperLeg::UpperLeg(float rx, float ry, float rz, float dx, float dy, float dz) :
+LowerLeg::LowerLeg(float rx, float ry, float rz, float dx, float dy, float dz) :
     BodyPart(rx, ry, rz, dx, dy, dz)
 {
     m_displayList = glGenLists(1);
     glNewList(m_displayList, GL_COMPILE);
-        glColor3fv(m_colorBlue1);
+        glColor3fv(m_color1);
         GLUquadricObj *quadratic = gluNewQuadric();
         glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
-        gluCylinder(quadratic, UPPER_LEG_RADIUS_BASE, UPPER_LEG_RADIUS_TOP, UPPER_LEG_HEIGHT, SLICES, STACKS);
+        gluCylinder(quadratic, LOWER_LEG_RADIUS_BASE, LOWER_LEG_RADIUS_TOP, LOWER_LEG_HEIGHT, SLICES, STACKS);
+        glPushMatrix();
+            glColor3fv(m_color2);
+            glTranslatef(0.0f, 0.0f, LOWER_LEG_HEIGHT);
+            gluDisk(quadratic, 0.0f, LOWER_LEG_RADIUS_TOP, SLICES, STACKS);
+        glPopMatrix();
         glRotatef(-90.0f, 1.0f, 0.0f, 0.0f);
     glEndList();
 }
 
-void UpperLeg::display()
+void LowerLeg::display()
 {
-    std::cout << "> UpperLeg::display()" << std::endl;
+    std::cout << "> LowerLeg::display()" << std::endl;
     glRotatef(m_rx, 1.0, 0.0, 0.0);
     glRotatef(m_rz, 0.0, 0.0, 1.0);
     glRotatef(m_ry, 0.0, 1.0, 0.0);

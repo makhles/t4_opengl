@@ -17,11 +17,14 @@
 #include "UpperArm.hpp"
 #include "LowerArm.hpp"
 #include "UpperLeg.hpp"
+#include "LowerLeg.hpp"
 
+void print_modelview_matrix();
 
 Puppet::Puppet()
 {
-    std::cout << "Creating torso..." << std::endl;
+    std::cout << "Creating Puppet" << std::endl;
+    std::cout << "---------------" << std::endl;
 
     m_hip = new Hip(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
     m_torso = new Torso(0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f);
@@ -33,6 +36,8 @@ Puppet::Puppet()
     m_rightLowerArm = new LowerArm(0.0f, 0.0f, -5.0f, 0.0f, -3.0f, 0.0f);
     m_leftUpperLeg = new UpperLeg(0.0f, 0.0f, -5.0f, -1.1f, -1.0f, 0.0f);
     m_rightUpperLeg = new UpperLeg(0.0f, 0.0f, 5.0f, 1.1f, -1.0f, 0.0f);
+    m_leftLowerLeg = new LowerLeg(0.0f, 0.0f, 0.0f, 0.0f, -4.0f, 0.0f);
+    m_rightLowerLeg = new LowerLeg(0.0f, 0.0f, 0.0f, 0.0f, -4.0f, 0.0f);
 
     // Family tree
     m_hip->set_child(m_torso);
@@ -43,7 +48,9 @@ Puppet::Puppet()
     m_leftUpperArm->set_sibling(m_rightUpperArm);
     m_rightUpperArm->set_child(m_rightLowerArm);
     m_torso->set_sibling(m_leftUpperLeg);
+    m_leftUpperLeg->set_child(m_leftLowerLeg);
     m_leftUpperLeg->set_sibling(m_rightUpperLeg);
+    m_rightUpperLeg->set_child(m_rightLowerLeg);
 
     m_root = m_hip;
 }
@@ -76,25 +83,39 @@ void Puppet::traverse(BodyPart *root)
     glPushMatrix();
 
     // Draw body part
-    std::cout << "Displaying body part..." << std::endl;
     root->display();
+    print_modelview_matrix();
 
     // Visit child
     if (root->child() != nullptr)
     {
-        std::cout << "Visiting child: " << root->child() << std::endl;
+        std::cout << "Visiting child: ";
         traverse(root->child());
     }
 
     // Pop the parent's state
     glPopMatrix();
 
+    print_modelview_matrix();
+
     // Visit sibling
     if (root->sibling() != nullptr)
     {
-        std::cout << "Visiting sibling: " << root->sibling() << std::endl;
+        std::cout << "Visiting sibling: ";
         traverse(root->sibling());
     }
+}
+
+void print_modelview_matrix() {
+    GLfloat m[16];
+    glGetFloatv(GL_MODELVIEW_MATRIX, m);
+    
+    for (int i = 0; i < 16; i++)
+    {
+        std::cout << "   " << m[i];
+        if ((i+1) % 4 == 0) std::cout << std::endl;
+    }
+    std::cout << " " << std::endl;
 }
 
 /**

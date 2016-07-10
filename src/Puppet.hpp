@@ -24,6 +24,8 @@ private:
     BodyPart * m_rightLowerArm;
     BodyPart * m_leftUpperLeg;
     BodyPart * m_rightUpperLeg;
+    BodyPart * m_leftLowerLeg;
+    BodyPart * m_rightLowerLeg;
 
 private:
     void traverse(BodyPart *root);

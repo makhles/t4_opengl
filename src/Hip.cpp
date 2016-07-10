@@ -10,12 +10,17 @@ Hip::Hip(float rx, float ry, float rz, float dx, float dy, float dz) :
 {
     m_displayList = glGenLists(1);
     glNewList(m_displayList, GL_COMPILE);
-        glColor3fv(m_color1);
         GLUquadricObj *quadratic = gluNewQuadric();
+        glPushMatrix();
+            glColor3fv(m_color1);
+            glTranslatef(0.0f, -HIP_HEIGHT / 2.0f, HIP_RADIUS_BASE);
+            gluDisk(quadratic, 0.0f, 0.2f, SLICES, STACKS);  // Belt buckle
+        glPopMatrix();
+        glColor3fv(m_color2);
         glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
         gluCylinder(quadratic, HIP_RADIUS_BASE, HIP_RADIUS_TOP, HIP_HEIGHT, SLICES, STACKS);
         glPushMatrix();
-            glColor3fv(m_color2);
+            glColor3fv(m_color3);
             glTranslatef(0.0f, 0.0f, HIP_HEIGHT);
             gluDisk(quadratic, 0.0f, HIP_RADIUS_TOP, SLICES, STACKS);
         glPopMatrix();

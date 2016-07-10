@@ -16,8 +16,8 @@ private:
     const float TORSO_HEIGHT = 5.0f;
     const float TORSO_RADIUS_BASE = 2.5f;
     const float TORSO_RADIUS_TOP = 2.0f;
-    const GLfloat m_color1[3] = {0.7f, 0.0f, 0.7f};  // Dark Magenta
-    const GLfloat m_color2[3] = {1.0f, 0.0f, 1.0f};  // Magenta
+    const GLfloat m_color1[3] = {0.165f, 0.435f, 0.216f};  // 42, 111, 55 (green)
+    const GLfloat m_color2[3] = {0.132f, 0.348f, 0.173f};  // 42, 111, 55 (darker green)
 
 public:
     Torso(float rx, float ry, float rz, float dx, float dy, float dz);

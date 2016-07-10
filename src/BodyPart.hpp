@@ -36,7 +36,8 @@ protected:
     GLuint m_displayList;
 
 public:
-    BodyPart(float rx, float ry, float rz, float dx, float dy, float dz) :
+    BodyPart(float rx, float ry, float rz,
+            float dx, float dy, float dz) :
         m_child(nullptr), m_sibling(nullptr),
         m_rx(rx), m_ry(ry), m_rz(rz),
         m_dx(dx), m_dy(dy), m_dz(dz)

@@ -1,7 +1,7 @@
 # Created by aszdrick graf <aszdrick@gmail.com>
 # Compiler
 CXX       :=g++
-LDLIBS    :=-g++ -lGL -lGLU -lglut
+LDLIBS    :=-lglut -lGL -lGLU
 LDFLAGS   :=
 CXXFLAGS  :=-std=c++11 -Wall
 # Source directory

@@ -16,7 +16,7 @@ private:
     const float NECK_HEIGHT = 0.6f;
     const float NECK_RADIUS_BASE = 0.6f;
     const float NECK_RADIUS_TOP = 0.6f;
-    const GLfloat m_color[3] = {0.0f, 0.7f, 0.7f};  // Dark Cyan
+    const GLfloat m_color[3] = {1.0f, 0.86f, 0.7f};  // 255, 220, 178
 
 public:
     Neck(float rx, float ry, float rz, float dx, float dy, float dz);
