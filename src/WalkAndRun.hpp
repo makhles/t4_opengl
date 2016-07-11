@@ -7,10 +7,8 @@
 #define WALKANDRUN_HPP
 
 #include <vector>
-
-// Forward declarations
-class Puppet;
-
+#include "Definitions.hpp"
+#include "Puppet.hpp"
 
 class WalkAndRun {
 
@@ -34,6 +32,10 @@ public:
     ~WalkAndRun();
     void display();
     void animate(const double dt);
+
+    void change_stance(Stance stance) {
+        m_puppet->change_stance(stance);
+    }
 
     void rotate_x(int orientation) {
         m_rx += orientation * DEFAULT_ROTATION;

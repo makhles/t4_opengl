@@ -41,11 +41,80 @@ void LowerArm::animate(const unsigned stage, float factor)
 
     float last_angle = 0.0f;
     if (stage == 0) {
-        last_angle = m_walk_angles.at(m_walk_angles.size() - 1);
+        last_angle = m_angles.at(m_angles.size() - 1);
     } else {
-        last_angle = m_walk_angles.at(stage - 1);
+        last_angle = m_angles.at(stage - 1);
     }
      
-    float stage_period = m_walk_angles.at(stage) - last_angle;
+    float stage_period = m_angles.at(stage) - last_angle;
     m_rx = last_angle + factor * stage_period;
+}
+
+void LowerArm::change_stance(Stance stance) {
+    if (m_stance != Stance::WALKING && stance == Stance::WALKING) {
+        m_stance = Stance::WALKING;
+        m_angles.clear();
+        if (m_side == BodySide::LEFT) {
+            m_angles.push_back(+0.0f);
+            m_angles.push_back(-5.0f);
+            m_angles.push_back(-10.0f);
+            m_angles.push_back(-15.0f);
+            m_angles.push_back(-20.0f);
+            m_angles.push_back(-25.0f);
+            m_angles.push_back(-30.0f);
+            m_angles.push_back(-25.0f);
+            m_angles.push_back(-20.0f);
+            m_angles.push_back(-15.0f);
+            m_angles.push_back(-10.0f);
+            m_angles.push_back(-5.0f);
+        } else if (m_side == BodySide::RIGHT) {
+            m_angles.push_back(-30.0f);
+            m_angles.push_back(-25.0f);
+            m_angles.push_back(-20.0f);
+            m_angles.push_back(-15.0f);
+            m_angles.push_back(-10.0f);
+            m_angles.push_back(-5.0f);
+            m_angles.push_back(+0.0f);
+            m_angles.push_back(-5.0f);
+            m_angles.push_back(-10.0f);
+            m_angles.push_back(-15.0f);
+            m_angles.push_back(-20.0f);
+            m_angles.push_back(-25.0f);
+        }
+    } else if (m_stance != Stance::RUNNING && stance == Stance::RUNNING) {
+        m_stance = Stance::RUNNING;
+        /*m_angles.clear();
+        if (m_side == BodySide::LEFT) {
+            m_angles.push_back(-30.0f);
+            m_angles.push_back(-20.0f);
+            m_angles.push_back(-10.0f);
+            m_angles.push_back(+0.0f);
+            m_angles.push_back(+10.0f);
+            m_angles.push_back(+20.0f);
+            m_angles.push_back(+30.0f);
+            m_angles.push_back(+20.0f);
+            m_angles.push_back(+10.0f);
+            m_angles.push_back(+0.0f);
+            m_angles.push_back(-10.0f);
+            m_angles.push_back(-20.0f);
+        } else if (m_side == BodySide::RIGHT) {
+            m_angles.push_back(+30.0f);
+            m_angles.push_back(+20.0f);
+            m_angles.push_back(+10.0f);
+            m_angles.push_back(+0.0f);
+            m_angles.push_back(-10.0f);
+            m_angles.push_back(-20.0f);
+            m_angles.push_back(-30.0f);
+            m_angles.push_back(-20.0f);
+            m_angles.push_back(-10.0f);
+            m_angles.push_back(+0.0f);
+            m_angles.push_back(+10.0f);
+            m_angles.push_back(+20.0f);
+        }*/
+    } else if (m_stance != Stance::STANDING && stance == Stance::STANDING) {
+        m_stance = Stance::STANDING;
+        for (unsigned i = 0; i < m_angles.size(); i++) {
+            m_angles.at(i) = 0.0f;
+        }
+    }
 }

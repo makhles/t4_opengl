@@ -23,6 +23,7 @@ public:
     ~UpperLeg() {}
     void display() override;
     void animate(const unsigned stage, float factor) override;
+    void change_stance(Stance stance) override;
 };
 
 #endif  // UPPER_LEG_HPP

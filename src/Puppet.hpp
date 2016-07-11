@@ -6,6 +6,8 @@
 #ifndef PUPPET_HPP
 #define PUPPET_HPP
 
+#include "Definitions.hpp"
+
 // Forward declarations
 class BodyPart;
 
@@ -33,10 +35,10 @@ private:
     void traverse(BodyPart *root);
     void delete_puppet(BodyPart *root);
 
-    BodyPart* create_upper_leg(unsigned side);
-    BodyPart* create_lower_leg(unsigned side);
-    BodyPart* create_upper_arm(unsigned side);
-    BodyPart* create_lower_arm(unsigned side);
+    BodyPart* create_upper_leg(BodySide side);
+    BodyPart* create_lower_leg(BodySide side);
+    BodyPart* create_upper_arm(BodySide side);
+    BodyPart* create_lower_arm(BodySide side);
 
 public:
     Puppet();
@@ -44,7 +46,8 @@ public:
     void display();
     void animate(const unsigned stage, float factor);
     void animate(BodyPart *root, const unsigned stage, float factor);
-
+    void change_stance(Stance stance);
+    void change_stance(BodyPart *root, Stance stance);
 };
 
 #endif  // PUPPET_HPP

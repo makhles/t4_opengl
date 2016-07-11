@@ -37,3 +37,8 @@ void Hip::display()
     glTranslatef(m_dx, m_dy, m_dz);
     glCallList(m_displayList);
 }
+
+void Hip::animate(const unsigned stage, float factor)
+{
+
+}

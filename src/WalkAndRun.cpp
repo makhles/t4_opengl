@@ -6,7 +6,6 @@
 #include <iostream>
 #include <GL/glut.h>
 #include "WalkAndRun.hpp"
-#include "Puppet.hpp"
 
 WalkAndRun::WalkAndRun(float eyex, float eyey, float eyez) :
     m_eyex(eyex), m_eyey(eyey), m_eyez(eyez), m_current_time(0.0f)

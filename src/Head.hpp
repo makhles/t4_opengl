@@ -26,6 +26,7 @@ public:
     Head(float rx, float ry, float rz, float dx, float dy, float dz);
     ~Head() {}
     void display() override;
+    void animate(const unsigned stage, float factor) override;
 };
 
 #endif  // HEAD_HPP

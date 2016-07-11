@@ -20,6 +20,7 @@ public:
     Neck(float rx, float ry, float rz, float dx, float dy, float dz);
     ~Neck() {}
     void display() override;
+    void animate(const unsigned stage, float factor) override;
 };
 
 #endif  // NECK_HPP

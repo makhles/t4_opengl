@@ -5,6 +5,7 @@
 #include <GL/glut.h>
 #include <stdlib.h>
 #include <sys/time.h>  /* for gettimeofday */
+#include "Definitions.hpp"
 #include "WalkAndRun.hpp"
 
 #define WINDOW_WIDTH 640
@@ -111,6 +112,9 @@ static void keyboard(unsigned char key, int x, int y)
         case 'Y': war->rotate_y(NEG); break;
         case 'z': war->rotate_z(POS); break;
         case 'Z': war->rotate_z(NEG); break;
+        case 'w': war->change_stance(Stance::WALKING); break;
+        case 'r': war->change_stance(Stance::RUNNING); break;
+        case 's': war->change_stance(Stance::STANDING); break;
     }
     glutPostRedisplay();
 }

@@ -20,6 +20,7 @@ public:
     Foot(float rx, float ry, float rz, float dx, float dy, float dz);
     ~Foot() {}
     void display() override;
+    void animate(const unsigned stage, float factor) override;
 };
 
 #endif  // FOOT_HPP

@@ -27,3 +27,9 @@ void Neck::display()
     glTranslatef(m_dx, m_dy, m_dz);
     glCallList(m_displayList);
 }
+
+
+void Neck::animate(const unsigned stage, float factor)
+{
+
+}

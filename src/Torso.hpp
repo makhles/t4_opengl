@@ -21,6 +21,7 @@ public:
     Torso(float rx, float ry, float rz, float dx, float dy, float dz);
     ~Torso() {}
     void display() override;
+    void animate(const unsigned stage, float factor) override;
 };
 
 #endif  // TORSO_HPP

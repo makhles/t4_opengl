@@ -30,3 +30,8 @@ void Foot::display()
     glTranslatef(m_dx, m_dy, m_dz);
     glCallList(m_displayList);
 }
+
+void Foot::animate(const unsigned stage, float factor)
+{
+
+}

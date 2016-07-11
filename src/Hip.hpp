@@ -22,6 +22,7 @@ public:
     Hip(float rx, float ry, float rz, float dx, float dy, float dz);
     ~Hip() {}
     void display() override;
+    void animate(const unsigned stage, float factor) override;
 };
 
 #endif  // HIP_HPP
