@@ -11,8 +11,6 @@
 class Hip : public BodyPart {
 
 private:
-    const int SLICES = 32;
-    const int STACKS = 32;
     const float HIP_HEIGHT = 1.0f;
     const float HIP_RADIUS_BASE = 2.1f;
     const float HIP_RADIUS_TOP = 2.1f;

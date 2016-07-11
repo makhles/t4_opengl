@@ -11,8 +11,6 @@
 class Torso : public BodyPart {
 
 private:
-    const int SLICES = 32;
-    const int STACKS = 32;
     const float TORSO_HEIGHT = 5.0f;
     const float TORSO_RADIUS_BASE = 2.5f;
     const float TORSO_RADIUS_TOP = 2.0f;

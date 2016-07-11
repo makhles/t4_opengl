@@ -21,7 +21,7 @@ static double ftime();
 
 // Global variables
 WalkAndRun *war;
-static double last_time;
+static double last_time = 0.0;
 
 // ------------------------------------------------------------------------- //
 
@@ -138,9 +138,8 @@ static void special_function(int key, int x, int y)
 static void idle() {
     const double time_now = ftime();
     const double dt = time_now - last_time;
-    const double speed = dt * 60;
     last_time = time_now;
-    war->animate(speed);
+    war->animate(dt);
     glutPostRedisplay();
 }
 

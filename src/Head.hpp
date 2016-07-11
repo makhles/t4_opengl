@@ -11,8 +11,6 @@
 class Head : public BodyPart {
 
 private:
-    const GLint SLICES = 32;
-    const GLint STACKS = 32;
     const float HEAD_RADIUS = 1.3f;
     const float HAT_BASE_RADIUS_BASE = 1.6;
     const float HAT_BASE_RADIUS_TOP = 1.6;

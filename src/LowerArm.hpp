@@ -11,8 +11,6 @@
 class LowerArm : public BodyPart {
 
 private:
-    const GLint SLICES = 32;
-    const GLint STACKS = 32;
     const float LOWER_ARM_HEIGHT = 4.0f;
     const float LOWER_ARM_RADIUS_BASE = 0.6f;
     const float LOWER_ARM_RADIUS_TOP = 0.4f;
@@ -24,6 +22,7 @@ public:
     LowerArm(float rx, float ry, float rz, float dx, float dy, float dz);
     ~LowerArm() {}
     void display() override;
+    void animate(const unsigned stage, float factor) override;
 };
 
 #endif  // LOWER_ARM_HPP

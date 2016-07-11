@@ -11,8 +11,6 @@
 class UpperArm : public BodyPart {
 
 private:
-    const int SLICES = 32;
-    const int STACKS = 32;
     const float UPPER_ARM_HEIGHT = 3.0f;
     const float UPPER_ARM_RADIUS_BASE = 0.6f;
     const float UPPER_ARM_RADIUS_TOP = 0.6f;
@@ -22,6 +20,7 @@ public:
     UpperArm(float rx, float ry, float rz, float dx, float dy, float dz);
     ~UpperArm() {}
     void display() override;
+    void animate(const unsigned stage, float factor) override;
 };
 
 #endif  // UPPER_ARM_HPP

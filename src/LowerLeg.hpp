@@ -11,8 +11,6 @@
 class LowerLeg : public BodyPart {
 
 private:
-    const GLint SLICES = 32;
-    const GLint STACKS = 32;
     const float LOWER_LEG_HEIGHT = 6.0f;
     const float LOWER_LEG_RADIUS_BASE = 1.0f;
     const float LOWER_LEG_RADIUS_TOP = 0.8f;
@@ -24,6 +22,7 @@ public:
     LowerLeg(float rx, float ry, float rz, float dx, float dy, float dz);
     ~LowerLeg() {}
     void display() override;
+    void animate(const unsigned stage, float factor) override;
 };
 
 #endif  // LOWER_LEG_HPP

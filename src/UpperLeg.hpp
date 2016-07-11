@@ -11,8 +11,6 @@
 class UpperLeg : public BodyPart {
 
 private:
-    const GLint SLICES = 32;
-    const GLint STACKS = 32;
     const float UPPER_LEG_HEIGHT = 4.0f;
     const float UPPER_LEG_RADIUS_BASE = 1.0f;
     const float UPPER_LEG_RADIUS_TOP = 1.0f;
@@ -24,6 +22,7 @@ public:
     UpperLeg(float rx, float ry, float rz, float dx, float dy, float dz);
     ~UpperLeg() {}
     void display() override;
+    void animate(const unsigned stage, float factor) override;
 };
 
 #endif  // UPPER_LEG_HPP

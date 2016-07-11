@@ -11,8 +11,6 @@
 class Foot : public BodyPart {
 
 private:
-    const GLint SLICES = 32;
-    const GLint STACKS = 32;
     const float FOOT_HEIGHT = 2.5f;
     const float FOOT_RADIUS_BASE = 1.0f;
     const float FOOT_RADIUS_TOP = 0.6f;

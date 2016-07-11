@@ -20,6 +20,9 @@
 #include "LowerLeg.hpp"
 #include "Foot.hpp"
 
+#define LEFT_SIDE 0
+#define RIGHT_SIDE 1
+
 void print_modelview_matrix();
 
 Puppet::Puppet()
@@ -28,17 +31,18 @@ Puppet::Puppet()
     std::cout << "---------------" << std::endl;
 
     m_hip = new Hip(0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f);
+    m_root = m_hip;
     m_torso = new Torso(0.0f, 0.0f, 0.0f, 0.0f, 5.0f, 0.0f);
     m_neck = new Neck(0.0f, 0.0f, 0.0f, 0.0f, 0.6f, 0.0f);
     m_head = new Head(0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f);
-    m_leftUpperArm = new UpperArm(0.0f, 0.0f, -5.0f, -2.7f, 0.0f, 0.0f);
-    m_rightUpperArm = new UpperArm(0.0f, 0.0f, 5.0f, 2.7f, 0.0f, 0.0f);
-    m_leftLowerArm = new LowerArm(0.0f, 0.0f, 5.0f, 0.0f, -3.0f, 0.0f);
-    m_rightLowerArm = new LowerArm(0.0f, 0.0f, -5.0f, 0.0f, -3.0f, 0.0f);
-    m_leftUpperLeg = new UpperLeg(0.0f, 0.0f, -5.0f, -1.1f, -1.0f, 0.0f);
-    m_rightUpperLeg = new UpperLeg(0.0f, 0.0f, 5.0f, 1.1f, -1.0f, 0.0f);
-    m_leftLowerLeg = new LowerLeg(0.0f, 0.0f, 0.0f, 0.0f, -4.0f, 0.0f);
-    m_rightLowerLeg = new LowerLeg(0.0f, 0.0f, 0.0f, 0.0f, -4.0f, 0.0f);
+    m_leftUpperArm = create_upper_arm(LEFT_SIDE);
+    m_rightUpperArm = create_upper_arm(RIGHT_SIDE);
+    m_leftLowerArm = create_lower_arm(LEFT_SIDE);
+    m_rightLowerArm = create_lower_arm(RIGHT_SIDE);
+    m_leftUpperLeg = create_upper_leg(LEFT_SIDE);
+    m_rightUpperLeg = create_upper_leg(RIGHT_SIDE);
+    m_leftLowerLeg = create_lower_leg(LEFT_SIDE);
+    m_rightLowerLeg = create_lower_leg(RIGHT_SIDE);
     m_leftFoot = new Foot(0.0f, 0.0f, 0.0f, 0.0f, -6.0f, 0.0f);
     m_rightFoot = new Foot(0.0f, 0.0f, 0.0f, 0.0f, -6.0f, 0.0f);
 
@@ -57,7 +61,6 @@ Puppet::Puppet()
     m_rightUpperLeg->set_child(m_rightLowerLeg);
     m_rightLowerLeg->set_child(m_rightFoot);
 
-    m_root = m_hip;
 }
 
 Puppet::~Puppet()
@@ -75,6 +78,187 @@ void Puppet::delete_puppet(BodyPart *root)
     root = nullptr;
 }
 
+BodyPart* Puppet::create_upper_leg(unsigned side)
+{
+    BodyPart *leg;
+    std::vector<float> angles;
+
+    if (side == LEFT_SIDE) {
+        leg = new UpperLeg(-30.0f, 0.0f, -5.0f, -1.1f, -1.0f, 0.0f);
+        angles.push_back(-30.0f);
+        angles.push_back(-20.0f);
+        angles.push_back(-10.0f);
+        angles.push_back(+0.0f);
+        angles.push_back(+10.0f);
+        angles.push_back(+20.0f);
+        angles.push_back(+30.0f);
+        angles.push_back(+20.0f);
+        angles.push_back(+10.0f);
+        angles.push_back(+0.0f);
+        angles.push_back(-10.0f);
+        angles.push_back(-20.0f);
+    }
+    // Right upper leg moves forward first
+    else if (side == RIGHT_SIDE) {
+        leg = new UpperLeg(30.0f, 0.0f, 5.0f, 1.1f, -1.0f, 0.0f);
+        angles.push_back(+30.0f);
+        angles.push_back(+20.0f);
+        angles.push_back(+10.0f);
+        angles.push_back(+0.0f);
+        angles.push_back(-10.0f);
+        angles.push_back(-20.0f);
+        angles.push_back(-30.0f);
+        angles.push_back(-20.0f);
+        angles.push_back(-10.0f);
+        angles.push_back(+0.0f);
+        angles.push_back(+10.0f);
+        angles.push_back(+20.0f);
+    }
+    else {
+        std::cout << "Could not create upper leg!" << std::endl;
+        delete_puppet(m_root);
+        exit(1);
+    }
+    leg->set_walk_angles(angles);
+
+    return leg;
+}
+
+BodyPart* Puppet::create_lower_leg(unsigned side)
+{
+    BodyPart *leg;
+    std::vector<float> angles;
+
+    if (side == LEFT_SIDE) {
+        leg = new LowerLeg(0.0f, 0.0f, 0.0f, 0.0f, -4.0f, 0.0f);
+        angles.push_back(+0.0f);
+        angles.push_back(+6.0f);
+        angles.push_back(+4.0f);
+        angles.push_back(+0.0f);
+        angles.push_back(+0.0f);
+        angles.push_back(+0.0f);
+        angles.push_back(+0.0f);
+        angles.push_back(+10.0f);
+        angles.push_back(+50.0f);
+        angles.push_back(+65.0f);
+        angles.push_back(+30.0f);
+        angles.push_back(+5.0f);
+    }
+    else if (side == RIGHT_SIDE) {
+        leg = new LowerLeg(0.0f, 0.0f, 0.0f, 0.0f, -4.0f, 0.0f);
+        angles.push_back(+0.0f);
+        angles.push_back(+10.0f);
+        angles.push_back(+50.0f);
+        angles.push_back(+65.0f);
+        angles.push_back(+30.0f);
+        angles.push_back(+5.0f);
+        angles.push_back(+0.0f);
+        angles.push_back(+6.0f);
+        angles.push_back(+4.0f);
+        angles.push_back(+0.0f);
+        angles.push_back(+0.0f);
+        angles.push_back(+0.0f);
+    }
+    else {
+        std::cout << "Could not create upper leg!" << std::endl;
+        delete_puppet(m_root);
+        exit(1);
+    }
+    leg->set_walk_angles(angles);
+
+    return leg;
+}
+
+BodyPart* Puppet::create_upper_arm(unsigned side)
+{
+    BodyPart *arm;
+    std::vector<float> angles;
+
+    if (side == LEFT_SIDE) {
+        arm = new UpperArm(-30.0f, 0.0f, -5.0f, -2.7f, 0.0f, 0.0f);
+        angles.push_back(+30.0f);
+        angles.push_back(+20.0f);
+        angles.push_back(+10.0f);
+        angles.push_back(+0.0f);
+        angles.push_back(-10.0f);
+        angles.push_back(-20.0f);
+        angles.push_back(-30.0f);
+        angles.push_back(-20.0f);
+        angles.push_back(-10.0f);
+        angles.push_back(+0.0f);
+        angles.push_back(+10.0f);
+        angles.push_back(+20.0f);
+    }
+    else if (side == RIGHT_SIDE) {
+        arm = new UpperArm(30.0f, 0.0f, 5.0f, 2.7f, 0.0f, 0.0f);
+        angles.push_back(-30.0f);
+        angles.push_back(-20.0f);
+        angles.push_back(-10.0f);
+        angles.push_back(+0.0f);
+        angles.push_back(+10.0f);
+        angles.push_back(+20.0f);
+        angles.push_back(+30.0f);
+        angles.push_back(+20.0f);
+        angles.push_back(+10.0f);
+        angles.push_back(+0.0f);
+        angles.push_back(-10.0f);
+        angles.push_back(-20.0f);
+    }
+    else {
+        std::cout << "Could not create upper arm!" << std::endl;
+        delete_puppet(m_root);
+        exit(1);
+    }
+    arm->set_walk_angles(angles);
+
+    return arm;
+}
+
+BodyPart* Puppet::create_lower_arm(unsigned side)
+{
+    BodyPart *arm;
+    std::vector<float> angles;
+
+    if (side == LEFT_SIDE) {
+        arm = new LowerArm(0.0f, 0.0f, 5.0f, 0.0f, -3.0f, 0.0f);
+        angles.push_back(+0.0f);
+        angles.push_back(-5.0f);
+        angles.push_back(-10.0f);
+        angles.push_back(-15.0f);
+        angles.push_back(-20.0f);
+        angles.push_back(-25.0f);
+        angles.push_back(-30.0f);
+        angles.push_back(-25.0f);
+        angles.push_back(-20.0f);
+        angles.push_back(-15.0f);
+        angles.push_back(-10.0f);
+        angles.push_back(-5.0f);
+    }
+    else if (side == RIGHT_SIDE) {
+        arm = new LowerArm(30.0f, 0.0f, -5.0f, 0.0f, -3.0f, 0.0f);
+        angles.push_back(-30.0f);
+        angles.push_back(-25.0f);
+        angles.push_back(-20.0f);
+        angles.push_back(-15.0f);
+        angles.push_back(-10.0f);
+        angles.push_back(-5.0f);
+        angles.push_back(+0.0f);
+        angles.push_back(-5.0f);
+        angles.push_back(-10.0f);
+        angles.push_back(-15.0f);
+        angles.push_back(-20.0f);
+        angles.push_back(-25.0f);
+    }
+    else {
+        std::cout << "Could not create upper arm!" << std::endl;
+        delete_puppet(m_root);
+        exit(1);
+    }
+    arm->set_walk_angles(angles);
+
+    return arm;
+}
+
 /**
  * @brief      Tree traversal algorithm.
  *
@@ -89,24 +273,21 @@ void Puppet::traverse(BodyPart *root)
 
     // Draw body part
     root->display();
-    //print_modelview_matrix();
 
     // Visit child
     if (root->child() != nullptr)
     {
-        std::cout << "Visiting child: ";
+        //std::cout << "Visiting child: ";
         traverse(root->child());
     }
 
     // Pop the parent's state
     glPopMatrix();
 
-    print_modelview_matrix();
-
     // Visit sibling
     if (root->sibling() != nullptr)
     {
-        std::cout << "Visiting sibling: ";
+        //std::cout << "Visiting sibling: ";
         traverse(root->sibling());
     }
 }
@@ -129,4 +310,17 @@ void print_modelview_matrix() {
 void Puppet::display()
 {
     Puppet::traverse(m_root);
+}
+
+void Puppet::animate(const unsigned stage, float factor)
+{
+    Puppet::animate(m_root, stage, factor);
+}
+
+void Puppet::animate(BodyPart *root, const unsigned stage, float factor)
+{
+    if (root == nullptr) return;
+    root->animate(stage, factor);
+    if (root->child() != nullptr) animate(root->child(), stage, factor);
+    if (root->sibling() != nullptr) animate(root->sibling(), stage, factor);
 }

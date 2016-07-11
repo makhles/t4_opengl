@@ -6,6 +6,8 @@
 #ifndef WALKANDRUN_HPP
 #define WALKANDRUN_HPP
 
+#include <vector>
+
 // Forward declarations
 class Puppet;
 
@@ -19,11 +21,19 @@ private:
     float m_rx, m_ry, m_rz;        // Scene rotation angles
     float m_eyex, m_eyey, m_eyez;  // Desired viewpoint
 
+    const float M_PERIOD = 2.0f;        // In seconds
+    const unsigned M_NUMBER_OF_STAGES = 12;
+    const float M_STAGE_PERIOD = M_PERIOD / (float) M_NUMBER_OF_STAGES;
+    std::vector<float> m_stages;
+    float m_current_time;
+
+    void fill_stages();
+
 public:
     WalkAndRun(float eyex, float eyey, float eyez);
     ~WalkAndRun();
     void display();
-    void animate(const double speed);
+    void animate(const double dt);
 
     void rotate_x(int orientation) {
         m_rx += orientation * DEFAULT_ROTATION;

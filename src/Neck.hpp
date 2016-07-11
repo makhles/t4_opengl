@@ -11,8 +11,6 @@
 class Neck : public BodyPart {
 
 private:
-    const int SLICES = 32;
-    const int STACKS = 32;
     const float NECK_HEIGHT = 0.6f;
     const float NECK_RADIUS_BASE = 0.6f;
     const float NECK_RADIUS_TOP = 0.6f;

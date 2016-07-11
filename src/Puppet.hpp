@@ -33,10 +33,17 @@ private:
     void traverse(BodyPart *root);
     void delete_puppet(BodyPart *root);
 
+    BodyPart* create_upper_leg(unsigned side);
+    BodyPart* create_lower_leg(unsigned side);
+    BodyPart* create_upper_arm(unsigned side);
+    BodyPart* create_lower_arm(unsigned side);
+
 public:
     Puppet();
     ~Puppet();
     void display();
+    void animate(const unsigned stage, float factor);
+    void animate(BodyPart *root, const unsigned stage, float factor);
 
 };
 
