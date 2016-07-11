@@ -10,11 +10,12 @@ UpperArm::UpperArm(float rx, float ry, float rz, float dx, float dy, float dz) :
 {
     m_displayList = glGenLists(1);
     glNewList(m_displayList, GL_COMPILE);
-        glColor3fv(m_color);
+        glColor3fv(m_color1);
         GLUquadricObj *quadratic = gluNewQuadric();
         glTranslatef(0.0f, -0.5f, 0.0f);
         gluSphere(quadratic, 0.6, SLICES, STACKS);
         glRotatef(90.0f, 1.0f, 0.0f, 0.0f);
+        glColor3fv(m_color2);
         gluCylinder(quadratic, UPPER_ARM_RADIUS_BASE, UPPER_ARM_RADIUS_TOP, UPPER_ARM_HEIGHT, SLICES, STACKS);
         gluDisk(quadratic, 0.0f, UPPER_ARM_RADIUS_BASE, SLICES, STACKS);
         glPushMatrix();
@@ -83,34 +84,34 @@ void UpperArm::change_stance(Stance stance) {
         }
     } else if (m_stance != Stance::RUNNING && stance == Stance::RUNNING) {
         m_stance = Stance::RUNNING;
-        /*m_angles.clear();
+        m_angles.clear();
         if (m_side == BodySide::LEFT) {
-            m_angles.push_back(-30.0f);
-            m_angles.push_back(-20.0f);
-            m_angles.push_back(-10.0f);
-            m_angles.push_back(+0.0f);
-            m_angles.push_back(+10.0f);
-            m_angles.push_back(+20.0f);
+            m_angles.push_back(+45.0f);
             m_angles.push_back(+30.0f);
-            m_angles.push_back(+20.0f);
             m_angles.push_back(+10.0f);
             m_angles.push_back(+0.0f);
             m_angles.push_back(-10.0f);
-            m_angles.push_back(-20.0f);
+            m_angles.push_back(-30.0f);
+            m_angles.push_back(-45.0f);
+            m_angles.push_back(-30.0f);
+            m_angles.push_back(-10.0f);
+            m_angles.push_back(+0.0f);
+            m_angles.push_back(+10.0f);
+            m_angles.push_back(+30.0f);
         } else if (m_side == BodySide::RIGHT) {
-            m_angles.push_back(+30.0f);
-            m_angles.push_back(+20.0f);
-            m_angles.push_back(+10.0f);
-            m_angles.push_back(+0.0f);
-            m_angles.push_back(-10.0f);
-            m_angles.push_back(-20.0f);
+            m_angles.push_back(-45.0f);
             m_angles.push_back(-30.0f);
-            m_angles.push_back(-20.0f);
             m_angles.push_back(-10.0f);
             m_angles.push_back(+0.0f);
             m_angles.push_back(+10.0f);
-            m_angles.push_back(+20.0f);
-        }*/
+            m_angles.push_back(+30.0f);
+            m_angles.push_back(+45.0f);
+            m_angles.push_back(+30.0f);
+            m_angles.push_back(+10.0f);
+            m_angles.push_back(+0.0f);
+            m_angles.push_back(-10.0f);
+            m_angles.push_back(-30.0f);
+        }
     } else if (m_stance != Stance::STANDING && stance == Stance::STANDING) {
         m_stance = Stance::STANDING;
         for (unsigned i = 0; i < m_angles.size(); i++) {
